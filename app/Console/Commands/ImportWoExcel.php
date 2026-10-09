@@ -14,15 +14,19 @@ class ImportWoExcel extends Command
 
     public function handle()
     {
+        // Tambahkan 2 baris ini untuk mem-bypass batas memori dan batas waktu PHP
+        ini_set('memory_limit', '-1');
+        set_time_limit(0);
+
         // Menangkap teks region yang diketik di terminal
         $region = strtolower($this->argument('region'));
         $this->info("Memulai proses import Excel untuk region: {$region}...");
 
         // Sistem secara cerdas memilih file yang tepat
         if ($region === 'batam') {
-            $filePath = storage_path('app/PROV 2026.xlsx');
+            $filePath = storage_path('app/PROV 2026 - DATA PROGRES.csv');
         } elseif ($region === 'sumbar') {
-            $filePath = storage_path('app/PROGRES PROV SUMBAR V5 (1).xlsx');
+            $filePath = storage_path('app/PROGRES PROV SUMBAR V5 - ALL WO HARIAN (1).csv');
         } elseif ($region === 'ridar') {
             $filePath = storage_path('app/LOGBOOK PROVISIONING RIDAR - PBB.csv');
         } else {
